@@ -1,23 +1,22 @@
 include <BOSL2/std.scad>
 use <../parts/switches.scad>
-use <../parts/breakout.scad>
+use <../parts/boards.scad>
 
 offset = 11.25;
 plug_width = 9.441;
 box_width = 32;
-show_box = false;
-show_lid = true;
+show_box = true;
+show_lid = false;
 show_parts = false;
-embedded_switch = false;
+embedded_switch = true;
 
 module lid() {
     thickness = 1.6;
 
     difference() {
         union() {
-            translate([32, 0, 8]) {
-                rotate([0, 180, 0]) import("../stl/esp32_cam/lid.stl");
-            }
+            right(box_width) up(8) yrot(180) import("../stl/esp32_cam/lid.stl");
+            
             // USB hole fill
             right(10) back(2.8) up(22) cube([12, 6, thickness]);
 
