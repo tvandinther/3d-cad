@@ -3,6 +3,7 @@ use <./usb.scad>
 use <./inserts.scad>
 
 usbc_breakout = false;
+esp32 = false;
 
 module usbc_breakout() {
     $fn = 50;
@@ -80,3 +81,13 @@ module usbc_breakout() {
 }
 
 if (usbc_breakout) usbc_breakout();
+
+module esp32() {
+    pcb_thickness = 1.6;
+    screw_separation = 27.97;
+    dimensions = [51.8, 28.5, pcb_thickness];
+
+    cuboid(dimensions, anchor = LEFT + FRONT + BOTTOM);
+}
+
+if (esp32) esp32();
