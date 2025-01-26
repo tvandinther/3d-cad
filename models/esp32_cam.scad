@@ -48,7 +48,10 @@ module lid() {
 }
 
 module box() {
-    center = box_width/2;
+    center = box_width / 2;
+    thickness = 1.6;
+    $fn = 50;
+
     union() {
         difference() {
             union(){
@@ -56,7 +59,7 @@ module box() {
                 
                 // widen usb board cradle
                 xflip_copy(x = box_width / 2)
-                    right(4) back(1) up(1.6)
+                    right(4) back(1) up(thickness)
                         union() {
                             cube([6.3, 9.25, 20], center=false);
                             
@@ -67,8 +70,13 @@ module box() {
                 // flatten usb board area
                 let(width = 8.8)
                     right(center - width / 2) back(6.5) up(6.5) 
-                        cube([width, 3.1, 2]);   
+                        cube([width, 3.1, 2]);
             }
+
+            // widen camera hole
+            let(lens_diameter = 8.3, tolerance = 0.1)
+                right(center) back(38.75)
+                    cyl(l = thickness, r = (lens_diameter / 2) + tolerance, anchor = BOTTOM, rounding = -0.5);
             
             // usb board overhang removal
             let(width = 21.8)
@@ -86,7 +94,7 @@ module box() {
         
         // SD Card hole fill
         right(8) back(50.4) up(4)
-            cube([16, 1.6, 6]);
+            cube([16, thickness, 6]);
         
         // Screw hole fill
         right(8) up(8)
